@@ -57,6 +57,12 @@ function openSpell(s){
  selected=s; const html=detailHTML(s);
  [document.getElementById("detail"),document.getElementById("sheet")].forEach(node=>{node.innerHTML=html;bindDetailActions(node);});
 }
+function showSpellModal(s){
+ openSpell(s);
+ const modal=document.getElementById("modal");
+ modal.classList.add("show");
+ modal.setAttribute("aria-hidden","false");
+}
 function detailHTML(s){
  const prepared=state.prepared.includes(key(s.source,s.l,s.n)), favorite=state.favorites.includes(key(s.source,s.l,s.n)), stats=spellStats(s), reference=spellReference(s), domain=isDomain(s), info=slotInfo(s.l), preparedCount=preparedAt(s.l,domain).length, limit=domain?info.domain:info.normal;
  const fields=[["School",s.s],["Casting time",stats.casting],["Range",stats.range],["Target / effect",stats.target],["Duration",stats.duration],["Save",stats.save],["Spell resistance",stats.sr],["Components",stats.components],["Spell save DC",spellDC(s.l)],["Caster level",characterLevel()],["Preparation",prepared?"Prepared":"Not prepared"],["Bookmark",favorite?"★ Favorite":"☆ Not favorited"]];
@@ -81,7 +87,7 @@ function render(){
   const list=spells.filter(s=>s.l===level); if(!list.length)continue;
   const section=document.createElement("div");section.className="level";section.innerHTML=`<div class="levelhead"><strong>${level===0?"0 · Orisons":ordinal(level)+" · Spells"}</strong><span class="count">${list.length}</span></div>`;
   list.forEach(s=>{const spellKey=key(s.source,s.l,s.n),row=document.createElement("div");row.className="spellrow";row.innerHTML=`<input class="check" type="checkbox" ${state.prepared.includes(spellKey)?"checked":""} aria-label="Prepare ${esc(s.n)}"><div><div class="spellname">${esc(s.n)}</div><div class="meta">${esc(s.s)} · ${esc(s.d)}</div></div><button class="star ${state.favorites.includes(spellKey)?"on":""}" title="Personal bookmark; use the Favorites filter" aria-label="Bookmark ${esc(s.n)}">★</button>`;
-   row.querySelector(".check").onclick=event=>{event.stopPropagation();togglePrepared(s);};row.querySelector(".star").onclick=event=>{event.stopPropagation();toggleFavorite(s);};row.onclick=()=>{openSpell(s);document.getElementById("modal").classList.add("show")};section.appendChild(row);});
+   row.querySelector(".check").onclick=event=>{event.stopPropagation();togglePrepared(s);};row.querySelector(".star").onclick=event=>{event.stopPropagation();toggleFavorite(s);};row.onclick=()=>showSpellModal(s);section.appendChild(row);});
   el.appendChild(section);
  }
  if(!el.childElementCount)el.innerHTML='<div class="empty">No spells match these filters.</div>';
@@ -93,7 +99,7 @@ function renderToday(el){
  el.innerHTML=`<section><h2 style="font-family:Georgia,serif;margin:0 0 4px">Prepared Today</h2><p class="prepared-intro">Caelian, Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()}). Checkboxes prepare spells; ★ bookmarks them for the Favorites filter.</p><div class="summarygrid"><div class="summarycard"><b>${prepared.length} / ${totalCapacity}</b><span>Prepared slots</span></div><div class="summarycard"><b>+${characterLevel()}</b><span>Caster level / dispel check</span></div><div class="summarycard"><b>${levels.filter(level=>level>0).length}</b><span>Available domain levels</span></div></div><div class="dc-panel"><h3>Spell Save DC by Level</h3><div class="dc-grid">${dcCards}</div></div><div class="bookmark-note"><strong>★</strong><span>Favorites are personal bookmarks only. They make a spell easier to find and do not prepare it.</span></div><div class="slotgrid">${levels.map(level=>slotCard(level)).join("")}</div><div class="actionrow"><button class="action secondary" id="clearPrepared">Clear today’s preparation</button></div></section>`;
  const unsupported=prepared.filter(s=>!slotInfo(s.l).normal); if(unsupported.length)el.innerHTML+=`<div class="warning">${unsupported.length} prepared spell${unsupported.length===1?" is":"s are"} above the current Cleric level or Wisdom limit. Remove ${unsupported.length===1?"it":"them"} before play.</div>`;
  const grouped=levels.map(level=>({level,normal:prepared.filter(s=>s.l===level&&!isDomain(s)),domain:prepared.filter(s=>s.l===level&&isDomain(s))}));
- grouped.forEach(group=>{const section=document.createElement("div");section.className="level";section.innerHTML=`<div class="levelhead"><strong>${group.level===0?"0 · Orisons":ordinal(group.level)+" · Spells"}</strong><span class="count">${group.normal.length} cleric · ${group.domain.length} domain</span></div>`;[...group.normal,...group.domain].forEach(s=>{const row=document.createElement("div");row.className="spellrow";row.innerHTML=`<div></div><div><div class="spellname">${esc(s.n)}</div><div class="meta">${sourceLabel(s.source)} · ${esc(s.s)} · DC ${spellDC(s.l)}</div></div><button class="star" aria-label="Open ${esc(s.n)}">→</button>`;row.onclick=()=>{openSpell(s);document.getElementById("modal").classList.add("show")};section.appendChild(row);});el.appendChild(section);});
+ grouped.forEach(group=>{const section=document.createElement("div");section.className="level";section.innerHTML=`<div class="levelhead"><strong>${group.level===0?"0 · Orisons":ordinal(group.level)+" · Spells"}</strong><span class="count">${group.normal.length} cleric · ${group.domain.length} domain</span></div>`;[...group.normal,...group.domain].forEach(s=>{const row=document.createElement("div");row.className="spellrow";row.innerHTML=`<div></div><div><div class="spellname">${esc(s.n)}</div><div class="meta">${sourceLabel(s.source)} · ${esc(s.s)} · DC ${spellDC(s.l)}</div></div><button class="star" aria-label="Open ${esc(s.n)}">→</button>`;row.onclick=()=>showSpellModal(s);section.appendChild(row);});el.appendChild(section);});
  if(!prepared.length)el.innerHTML+='<div class="empty">No spells prepared yet. Go to Cleric, Magic Domain, or Balance Domain and tick a checkbox.</div>';
  document.getElementById("clearPrepared").onclick=()=>{state.prepared=[];save();render();if(selected)openSpell(selected);};
 }
@@ -116,8 +122,8 @@ function applyCharacterChanges(event){
  if(source){levelInput.value=mobileLevel.value;wisInput.value=mobileWis.value;}
  state.character.level=Math.min(20,Math.max(1,Number.parseInt(levelInput.value,10)||1));state.character.wisdom=Math.min(60,Math.max(1,Number.parseInt(wisInput.value,10)||1));save();render();if(selected)openSpell(selected);
 }
-function closeModal(){document.getElementById("modal").classList.remove("show");}
-document.querySelectorAll(".tab").forEach(button=>button.onclick=()=>{document.querySelectorAll(".tab").forEach(item=>item.classList.remove("active"));button.classList.add("active");tab=button.dataset.tab;document.getElementById("levelFilter").value="all";document.getElementById("preparedFilter").value="all";render();});
+function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");document.getElementById("sheet").replaceChildren();selected=null;}
+document.querySelectorAll(".tab").forEach(button=>button.onclick=()=>{closeModal();document.querySelectorAll(".tab").forEach(item=>item.classList.remove("active"));button.classList.add("active");tab=button.dataset.tab;document.getElementById("levelFilter").value="all";document.getElementById("preparedFilter").value="all";render();});
 ["search","levelFilter","preparedFilter"].forEach(id=>{const input=document.getElementById(id);input.oninput=render;input.onchange=render;});
 ["charLevel","wis","mobileCharLevel","mobileWis"].forEach(id=>{const input=document.getElementById(id);input.onchange=applyCharacterChanges;});
 function closeMobileTools(){document.getElementById("mobileToolsDrawer").classList.remove("show");document.getElementById("mobileToolsBackdrop").classList.remove("show");document.getElementById("mobileToolsDrawer").setAttribute("aria-hidden","true");document.getElementById("mobileToolsButton").setAttribute("aria-expanded","false");}
