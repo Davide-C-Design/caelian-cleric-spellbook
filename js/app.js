@@ -122,7 +122,7 @@ function applyCharacterChanges(event){
  if(source){levelInput.value=mobileLevel.value;wisInput.value=mobileWis.value;}
  state.character.level=Math.min(20,Math.max(1,Number.parseInt(levelInput.value,10)||1));state.character.wisdom=Math.min(60,Math.max(1,Number.parseInt(wisInput.value,10)||1));save();render();if(selected)openSpell(selected);
 }
-function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");document.getElementById("sheet").replaceChildren();selected=null;}
+function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");selected=null;}
 document.querySelectorAll(".tab").forEach(button=>button.onclick=()=>{closeModal();document.querySelectorAll(".tab").forEach(item=>item.classList.remove("active"));button.classList.add("active");tab=button.dataset.tab;document.getElementById("levelFilter").value="all";document.getElementById("preparedFilter").value="all";render();});
 ["search","levelFilter","preparedFilter"].forEach(id=>{const input=document.getElementById(id);input.oninput=render;input.onchange=render;});
 ["charLevel","wis","mobileCharLevel","mobileWis"].forEach(id=>{const input=document.getElementById(id);input.onchange=applyCharacterChanges;});
