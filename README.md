@@ -10,4 +10,4 @@ Open `index.html` in a modern browser. No install, build step, or server is requ
 
 - Prepared spells, bookmarks, level, and Wisdom are saved in the browser when local storage is available.
 - The spellbook remains usable offline; external rules-reference links require an internet connection.
-- Balance Domain entries retain links to their source instead of reproducing proprietary book text.
+- Balance Domain entries are using a reworded full text for the spell.
