@@ -6,7 +6,9 @@ A responsive, standalone D&D 3.5 Cleric spellbook for Caelian Vàel, an Aasimar 
 
 - Full stat blocks for every spell (casting time, range, target, duration, save, spell resistance, components), plus a quick summary and a full description in plain language. The rules reference link is kept on each card for edge cases.
 - Preparation tracking with Cleric and domain slots, calculated from Cleric level and Wisdom, and spell save DCs by level.
-- Innate spells: racial or other spell-like abilities (default: Aasimar *daylight* 1/day). Choose the spell, uses per day, and a note in Character settings. Daily uses are tracked separately and are not reset by clearing prepared spells.
+- Innate spells: racial spell-like abilities, cast like spells (default: Aasimar *daylight* 1/day). Choose the spell, uses per day, and a note in Character settings.
+- Domain powers: the Balance power (1/day, add Wisdom modifier to AC for 1 round per cleric level) and the always-active Magic power (use scrolls and wands as a wizard of half your cleric level). Values update from Cleric level and Wisdom.
+- Innate spells and domain powers track their own daily uses and are not reset by clearing prepared spells.
 - Colour-coded lists: gold for Cleric spells and preparation, silver-blue for domain spells.
 
 ## Use locally

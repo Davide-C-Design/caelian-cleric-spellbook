@@ -54,7 +54,7 @@ main{max-width:1280px;margin:22px auto 40px;padding:0 20px}
 .select option,.select optgroup{background:var(--surface);color:var(--ink)}
 
 /* ---------- Spell list ---------- */
-.levels{display:grid;gap:18px}
+.levels{display:grid;gap:18px;align-content:start}
 .level{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
 .levelhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line)}
 .levelhead strong{font:600 18px/1.2 var(--serif);color:var(--ink)}
@@ -203,3 +203,11 @@ section>h3{font-size:19px;margin:26px 0 6px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
+.innate-card h3{font-size:17px;margin:0}
+.innate-effect{margin:0;color:var(--ink);font-size:14px;line-height:1.5}
+.innate-toggle{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-2);cursor:pointer}
+.settings .innate-toggle input,.innate-toggle input{width:20px;height:20px;min-height:0;padding:0;margin:0;accent-color:var(--gold)}
+.slotcard .used.passive{font-size:16px;color:var(--silver)}
+.settings .section-note{margin:-6px 0 12px}
+.domain-card{border-color:var(--silver-line)}
+.domain-card h3{color:var(--silver)}
