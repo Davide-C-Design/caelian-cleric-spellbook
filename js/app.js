@@ -342,6 +342,7 @@ function openSpell(s){
  selected=s; const html=detailHTML(s);
  [document.getElementById("detail"),document.getElementById("sheet")].forEach(node=>{node.innerHTML=html;bindDetailActions(node);});
 }
+const DETAIL_EMPTY='<h2>Choose a spell</h2><p>Select any spell to see its details here.</p>';
 function showSpellModal(s){
  openSpell(s);
  const modal=document.getElementById("modal");
@@ -360,7 +361,7 @@ function detailHTML(s){
  <p class="statusline">★ is a personal bookmark used by the Favorites filter. It never consumes a prepared slot.</p>`;
 }
 function bindDetailActions(node){
- node.querySelectorAll("[data-action]").forEach(button=>button.onclick=event=>{event.stopPropagation();const action=button.dataset.action;if(action==="close")return closeModal();if(!selected)return;action==="prepare"?togglePrepared(selected):toggleFavorite(selected);});
+ node.querySelectorAll("[data-action]").forEach(button=>button.onclick=event=>{event.stopPropagation();const action=button.dataset.action;if(action==="close")return node.id==="detail"?clearDetail():closeModal();if(!selected)return;action==="prepare"?togglePrepared(selected):toggleFavorite(selected);});
 }
 function render(){
  const el=document.getElementById("content"), toolbar=document.querySelector(".toolbar"); el.innerHTML=""; toolbar.hidden=tab==="today";
@@ -408,7 +409,10 @@ function applyCharacterChanges(event){
  if(source){levelInput.value=mobileLevel.value;wisInput.value=mobileWis.value;}
  state.character.level=Math.min(20,Math.max(1,Number.parseInt(levelInput.value,10)||1));state.character.wisdom=Math.min(60,Math.max(1,Number.parseInt(wisInput.value,10)||1));save();render();if(selected)openSpell(selected);
 }
-function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");selected=null;}
+// Closing the pop-up keeps the spell in the desktop side panel as a reference.
+function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");}
+// The side panel's own × clears it back to its empty state.
+function clearDetail(){closeModal();selected=null;document.getElementById("detail").innerHTML=DETAIL_EMPTY;}
 document.querySelectorAll(".tab").forEach(button=>button.onclick=()=>{closeModal();document.querySelectorAll(".tab").forEach(item=>item.classList.remove("active"));button.classList.add("active");tab=button.dataset.tab;document.getElementById("levelFilter").value="all";document.getElementById("preparedFilter").value="all";render();});
 ["search","levelFilter","preparedFilter"].forEach(id=>{const input=document.getElementById(id);input.oninput=render;input.onchange=render;});
 ["charLevel","wis","mobileCharLevel","mobileWis"].forEach(id=>{const input=document.getElementById(id);input.onchange=applyCharacterChanges;});
