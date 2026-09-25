@@ -342,7 +342,6 @@ function openSpell(s){
  selected=s; const html=detailHTML(s);
  [document.getElementById("detail"),document.getElementById("sheet")].forEach(node=>{node.innerHTML=html;bindDetailActions(node);});
 }
-const DETAIL_EMPTY='<h2>Choose a spell</h2><p>Select any spell to see its details here.</p>';
 function showSpellModal(s){
  openSpell(s);
  const modal=document.getElementById("modal");
@@ -361,7 +360,7 @@ function detailHTML(s){
  <p class="statusline">★ is a personal bookmark used by the Favorites filter. It never consumes a prepared slot.</p>`;
 }
 function bindDetailActions(node){
- node.querySelectorAll("[data-action]").forEach(button=>button.onclick=event=>{event.stopPropagation();const action=button.dataset.action;if(action==="close")return node.id==="detail"?clearDetail():closeModal();if(!selected)return;action==="prepare"?togglePrepared(selected):toggleFavorite(selected);});
+ node.querySelectorAll("[data-action]").forEach(button=>button.onclick=event=>{event.stopPropagation();const action=button.dataset.action;if(action==="close")return closeModal();if(!selected)return;action==="prepare"?togglePrepared(selected):toggleFavorite(selected);});
 }
 function render(){
  const el=document.getElementById("content"), toolbar=document.querySelector(".toolbar"); el.innerHTML=""; toolbar.hidden=tab==="today";
@@ -382,7 +381,7 @@ function renderToday(el){
  const all=allSpells("cleric").concat(allSpells("magic"),allSpells("balance"));
  const levels=activeSpellLevels(),prepared=all.filter(s=>state.prepared.includes(key(s.source,s.l,s.n))),totalCapacity=levels.reduce((sum,level)=>{const info=slotInfo(level);return sum+info.normal+info.domain;},0);
  const dcCards=levels.map(level=>`<div class="dc-item"><span>${level===0?"0-level":ordinal(level)+" level"}</span><b>DC ${spellDC(level)}</b></div>`).join("");
- el.innerHTML=`<section><h2 style="font-family:Georgia,serif;margin:0 0 4px">Prepared Today</h2><p class="prepared-intro">Caelian, Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()}). Checkboxes prepare spells; ★ bookmarks them for the Favorites filter.</p><div class="summarygrid"><div class="summarycard"><b>${prepared.length} / ${totalCapacity}</b><span>Prepared slots</span></div><div class="summarycard"><b>+${characterLevel()}</b><span>Caster level / dispel check</span></div><div class="summarycard"><b>${levels.filter(level=>level>0).length}</b><span>Available domain levels</span></div></div><div class="dc-panel"><h3>Spell Save DC by Level</h3><div class="dc-grid">${dcCards}</div></div><div class="bookmark-note"><strong>★</strong><span>Favorites are personal bookmarks only. They make a spell easier to find and do not prepare it.</span></div><div class="slotgrid">${levels.map(level=>slotCard(level)).join("")}</div><h3>Innate spells</h3><p class="prepared-intro">Racial spell-like abilities. They never use a Cleric or domain slot, only their own daily uses, and clearing prepared spells doesn’t reset them.</p><div id="todayInnate"></div><h3>Domain powers</h3><p class="prepared-intro">Granted bonuses from your domains, always available.</p><div id="todayDomain"></div><div class="actionrow"><button class="action secondary" id="clearPrepared">Clear today’s preparation</button></div></section>`;
+ el.innerHTML=`<section><h2 style="margin:0 0 4px">Prepared Today</h2><p class="prepared-intro">Caelian, Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()}). Checkboxes prepare spells; ★ bookmarks them for the Favorites filter.</p><div class="summarygrid"><div class="summarycard"><b>${prepared.length} / ${totalCapacity}</b><span>Prepared slots</span></div><div class="summarycard"><b>+${characterLevel()}</b><span>Caster level / dispel check</span></div><div class="summarycard"><b>${levels.filter(level=>level>0).length}</b><span>Available domain levels</span></div></div><div class="dc-panel"><h3>Spell Save DC by Level</h3><div class="dc-grid">${dcCards}</div></div><div class="bookmark-note"><strong>★</strong><span>Favorites are personal bookmarks only. They make a spell easier to find and do not prepare it.</span></div><div class="slotgrid">${levels.map(level=>slotCard(level)).join("")}</div><h3>Innate spells</h3><p class="prepared-intro">Racial spell-like abilities. They never use a Cleric or domain slot, only their own daily uses, and clearing prepared spells doesn’t reset them.</p><div id="todayInnate"></div><h3>Domain powers</h3><p class="prepared-intro">Granted bonuses from your domains, always available.</p><div id="todayDomain"></div><div class="actionrow"><button class="action secondary" id="clearPrepared">Clear today’s preparation</button></div></section>`;
  const unsupported=prepared.filter(s=>!slotInfo(s.l).normal); if(unsupported.length)el.innerHTML+=`<div class="warning">${unsupported.length} prepared spell${unsupported.length===1?" is":"s are"} above the current Cleric level or Wisdom limit. Remove ${unsupported.length===1?"it":"them"} before play.</div>`;
  const grouped=levels.map(level=>({level,normal:prepared.filter(s=>s.l===level&&!isDomain(s)),domain:prepared.filter(s=>s.l===level&&isDomain(s))}));
  grouped.forEach(group=>{const section=document.createElement("div");section.className="level";section.innerHTML=`<div class="levelhead"><strong>${group.level===0?"0 · Orisons":ordinal(group.level)+" · Spells"}</strong><span class="count">${group.normal.length} cleric · ${group.domain.length} domain</span></div>`;[...group.normal,...group.domain].forEach(s=>{const row=document.createElement("div");row.className="spellrow";row.innerHTML=`<div></div><div><div class="spellname">${esc(s.n)}</div><div class="meta">${sourceLabel(s.source)} · ${esc(s.s)} · DC ${spellDC(s.l)}</div></div><button class="star" aria-label="Open ${esc(s.n)}">→</button>`;row.onclick=()=>showSpellModal(s);section.appendChild(row);});el.appendChild(section);});
@@ -409,10 +408,7 @@ function applyCharacterChanges(event){
  if(source){levelInput.value=mobileLevel.value;wisInput.value=mobileWis.value;}
  state.character.level=Math.min(20,Math.max(1,Number.parseInt(levelInput.value,10)||1));state.character.wisdom=Math.min(60,Math.max(1,Number.parseInt(wisInput.value,10)||1));save();render();if(selected)openSpell(selected);
 }
-// Closing the pop-up keeps the spell in the desktop side panel as a reference.
-function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");}
-// The side panel's own × clears it back to its empty state.
-function clearDetail(){closeModal();selected=null;document.getElementById("detail").innerHTML=DETAIL_EMPTY;}
+function closeModal(){const modal=document.getElementById("modal");modal.classList.remove("show");modal.setAttribute("aria-hidden","true");selected=null;}
 document.querySelectorAll(".tab").forEach(button=>button.onclick=()=>{closeModal();document.querySelectorAll(".tab").forEach(item=>item.classList.remove("active"));button.classList.add("active");tab=button.dataset.tab;document.getElementById("levelFilter").value="all";document.getElementById("preparedFilter").value="all";render();});
 ["search","levelFilter","preparedFilter"].forEach(id=>{const input=document.getElementById(id);input.oninput=render;input.onchange=render;});
 ["charLevel","wis","mobileCharLevel","mobileWis"].forEach(id=>{const input=document.getElementById(id);input.onchange=applyCharacterChanges;});
