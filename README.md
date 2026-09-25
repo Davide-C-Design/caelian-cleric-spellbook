@@ -18,5 +18,5 @@ Open `index.html` in a modern browser. No install, build step, or server is requ
 ## Notes
 
 - Prepared spells, bookmarks, innate spells, level, and Wisdom are saved in the browser when local storage is available.
-- The spellbook works offline. Web fonts (Atkinson Hyperlegible, Spectral) and rules-reference links need an internet connection; offline, system fonts are used instead.
+- The spellbook works offline. Text uses the system font (SF Pro on Apple devices); other devices load Geist when online and use their system font offline. Rules-reference links need an internet connection.
 - Spell descriptions are written in the sheet's own words. Balance Domain spells come from *Spell Compendium*; core spells come from the D&D 3.5 SRD.
