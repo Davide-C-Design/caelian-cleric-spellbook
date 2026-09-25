@@ -25,26 +25,292 @@ const STAT_OVERRIDES={
   "magic|5|Spell Resistance":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
   "magic|6|Antimagic Field":{casting:"Standard action",range:"10 ft.",target:"10-ft.-radius emanation centered on you",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S, M/DF"},
   "magic|7|Spell Turning":{casting:"Standard action",range:"Personal",target:"You",duration:"Until expended or 10 min./level",save:"None",sr:"No",components:"V, S, M/DF"},
-  "magic|8|Protection from Spells":{casting:"Standard action",range:"Touch",target:"Up to one creature touched per four levels",duration:"10 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M, F"},
+  "magic|8|Protection from Spells":{casting:"Standard action",range:"Touch",target:"Up to one creature touched per four levels",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M, F"},
   "magic|9|Mage's Disjunction":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"All magical effects and magic items in a 40-ft.-radius burst",duration:"Instantaneous",save:"Will (object)",sr:"No",components:"V"},
-  "balance|1|Make Whole":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One object of up to 10 cu. ft./level",duration:"Instantaneous",save:"Will (object)",sr:"Yes (object)",components:"V, S, M"},
-  "balance|2|Calm Emotions":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Creatures in a 20-ft.-radius spread",duration:"Concentration, up to 1 round/level (D)",save:"Will",sr:"Yes",components:"V, S, DF"},
-  "balance|3|Clarity of Mind":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"1 hour/level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
-  "balance|4|Dismissal":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One extraplanar creature",duration:"Instantaneous",save:"Will; see text",sr:"Yes",components:"V, S, DF"},
-  "balance|5|Sanctuary, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which are more than 30 ft. apart",duration:"1 round/level",save:"Will",sr:"No",components:"V, S, DF"},
-  "balance|6|Banishment":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One or more extraplanar creatures, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will",sr:"Yes",components:"V, S, AF"},
-  "balance|7|Word of Balance":{casting:"Standard action",range:"30 ft.",target:"Creatures in a 30-ft.-radius spread centered on you",duration:"Instantaneous",save:"None",sr:"Yes",components:"V"},
-  "balance|8|Protection from Spells":{casting:"Standard action",range:"Touch",target:"Up to one creature touched per four levels",duration:"10 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M, F"},
-  "balance|9|Weighed in the Balance":{casting:"Standard action",range:"30 ft.",target:"Creatures in a 30-ft.-radius spread centered on you",duration:"Instantaneous",save:"Will",sr:"Yes",components:"V"}
+  "balance|1|Make Whole":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One object of up to 10 cu. ft./level",duration:"Instantaneous",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S"},
+  "balance|2|Calm Emotions":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Creatures in a 20-ft.-radius spread",duration:"Concentration, up to 1 round/level (D)",save:"Will negates",sr:"Yes",components:"V, S, DF"},
+  "balance|3|Clarity of Mind":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"1 hour/level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "balance|4|Dismissal":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One extraplanar creature",duration:"Instantaneous",save:"Will negates; see text",sr:"Yes",components:"V, S, DF"},
+  "balance|5|Sanctuary, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which are more than 30 ft. apart",duration:"1 round/level",save:"Will negates",sr:"No",components:"V, S, DF"},
+  "balance|6|Banishment":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One or more extraplanar creatures, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will negates",sr:"Yes",components:"V, S, F (optional; see text)"},
+  "balance|7|Word of Balance":{casting:"Standard action",range:"30 ft.",target:"Creatures in a 30-ft.-radius spread centered on you",duration:"Instantaneous",save:"None or Will negates; see text",sr:"Yes",components:"V"},
+  "balance|8|Protection from Spells":{casting:"Standard action",range:"Touch",target:"Up to one creature touched per four levels",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M, F"},
+  "balance|9|Weighed in the Balance":{casting:"Standard action",range:"30 ft.",target:"Creatures in a 30-ft.-radius spread centered on you",duration:"Instantaneous",save:"Will negates",sr:"Yes",components:"V"},
+  "cleric|0|Create Water":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"Up to 2 gallons/level of water",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|0|Cure Minor Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|0|Detect Poison":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature, one object, or a 5-ft. cube",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|0|Inflict Minor Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|0|Mending":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One object of up to 1 lb./level",duration:"Instantaneous",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S"},
+  "cleric|0|Purify Food and Drink":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"1 cu. ft./level of contaminated food and water",duration:"Instantaneous",save:"Will negates (harmless, object)",sr:"No",components:"V, S"},
+  "cleric|0|Read Magic":{casting:"Standard action",range:"Personal",target:"You",duration:"10 min./level",save:"None",sr:"No",components:"V, S, F"},
+  "cleric|0|Virtue":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 minute",save:"None",sr:"No",components:"V, S"},
+  "cleric|1|Bane":{casting:"Standard action",range:"50 ft.",target:"Enemies in a 50-ft. burst",duration:"1 min./level",save:"Will negates",sr:"Yes",components:"V, S, DF"},
+  "cleric|1|Bless Water":{casting:"1 minute",range:"Touch",target:"Flask of water touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|1|Cause Fear":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One living creature with 5 or fewer HD",duration:"1d4 rounds",save:"Will partial",sr:"Yes",components:"V, S"},
+  "cleric|1|Command":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One living creature",duration:"1 round",save:"Will negates",sr:"Yes",components:"V"},
+  "cleric|1|Comprehend Languages":{casting:"Standard action",range:"Personal",target:"You",duration:"10 min./level",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|1|Curse Water":{casting:"1 minute",range:"Touch",target:"Flask of water touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|1|Deathwatch":{casting:"Standard action",range:"30 ft.",target:"Cone-shaped emanation",duration:"10 min./level",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|1|Detect Chaos/Evil/Good/Law":{casting:"Standard action",range:"60 ft.",target:"Cone-shaped emanation",duration:"Concentration, up to 10 min./level (D)",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|1|Detect Undead":{casting:"Standard action",range:"60 ft.",target:"Cone-shaped emanation",duration:"Concentration, up to 10 min./level (D)",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|1|Doom":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One living creature",duration:"1 min./level",save:"Will negates",sr:"Yes",components:"V, S, DF"},
+  "cleric|1|Endure Elements":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"24 hours",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|1|Entropic Shield":{casting:"Standard action",range:"Personal",target:"You",duration:"1 min./level (D)",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|1|Hide from Undead":{casting:"Standard action",range:"Touch",target:"One or more creatures, no two of which can be more than 30 ft. apart",duration:"10 min./level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|1|Inflict Light Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|1|Magic Stone":{casting:"Standard action",range:"Touch",target:"Up to three pebbles touched",duration:"30 minutes",save:"None",sr:"No (harmless, object)",components:"V, S, M/DF"},
+  "cleric|1|Obscuring Mist":{casting:"Standard action",range:"20 ft.",target:"Cloud spreads in 20-ft. radius, 20 ft. high",duration:"1 min./level",save:"None",sr:"No",components:"V, S"},
+  "cleric|1|Protection from Chaos/Evil/Good/Law":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF, F"},
+  "cleric|1|Remove Fear":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature plus one additional creature per four levels",duration:"Instantaneous; see text",save:"None",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|1|Sanctuary":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level",save:"Will negates",sr:"Yes",components:"V, S, DF"},
+  "cleric|1|Summon Monster I":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|2|Aid":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"None",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|2|Align Weapon":{casting:"Standard action",range:"Touch",target:"Weapon touched or 50 arrows/bolts",duration:"1 min./level",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S, DF"},
+  "cleric|2|Augury":{casting:"1 minute",range:"Personal",target:"You",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, F"},
+  "cleric|2|Bear's Endurance":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|2|Bull's Strength":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|2|Consecrate":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"20-ft.-radius emanation",duration:"2 hours/level",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|2|Darkness":{casting:"Standard action",range:"Touch",target:"Object touched",duration:"10 min./level",save:"None",sr:"No",components:"V, M/DF"},
+  "cleric|2|Death Knell":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"Instantaneous or 10 min./HD of target",save:"Will negates",sr:"Yes",components:"V, S"},
+  "cleric|2|Delay Poison":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 hour/level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|2|Desecrate":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"20-ft.-radius emanation",duration:"2 hours/level",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|2|Eagle's Splendor":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|2|Enthrall":{casting:"1 round",range:"Medium (100 ft. + 10 ft./level)",target:"Any number of creatures",duration:"1 hour or less",save:"Will negates",sr:"Yes",components:"V, S"},
+  "cleric|2|Find Traps":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level",save:"None",sr:"No",components:"V, S"},
+  "cleric|2|Gentle Repose":{casting:"Standard action",range:"Touch",target:"Corpse touched",duration:"1 day/level (D)",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S, M/DF"},
+  "cleric|2|Hold Person":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One humanoid creature",duration:"1 round/level (D)",save:"Will negates",sr:"Yes",components:"V, S, F/DF"},
+  "cleric|2|Inflict Moderate Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|2|Owl's Wisdom":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|2|Remove Paralysis":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"Up to four creatures, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"None",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|2|Resist Energy":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|2|Lesser Restoration":{casting:"3 rounds",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|2|Shatter":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"10-ft.-radius spread, or one solid object, or one crystalline creature",duration:"Instantaneous",save:"Will negates (object) or Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|2|Shield Other":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"You and one touched creature",duration:"1 hour/level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|2|Silence":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One object, creature, or point in space",duration:"1 round/level",save:"Will negates (harmless, object) or Will negates",sr:"Yes (harmless, object) or Yes",components:"V, S"},
+  "cleric|2|Sound Burst":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"10-ft.-radius spread",duration:"Instantaneous",save:"Fortitude partial",sr:"Yes",components:"V, S, M/DF"},
+  "cleric|2|Status":{casting:"10 minutes",range:"Touch",target:"Six creatures touched, maximum",duration:"1 hour/level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|2|Summon Monster II":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|2|Undetectable Alignment":{casting:"Standard action",range:"Touch",target:"Creature or object touched",duration:"24 hours",save:"Will negates (object)",sr:"Yes (object)",components:"V, S, M"},
+  "cleric|2|Zone of Truth":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"20-ft.-radius emanation",duration:"1 min./level",save:"Will negates",sr:"Yes",components:"V, S"},
+  "cleric|3|Animate Dead":{casting:"Standard action",range:"Touch",target:"One or more corpses touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|3|Bestow Curse":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Permanent",save:"Will negates",sr:"Yes",components:"V, S"},
+  "cleric|3|Blindness/Deafness":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One living creature",duration:"Permanent (D)",save:"Fortitude negates",sr:"Yes",components:"V"},
+  "cleric|3|Contagion":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Fortitude negates",sr:"Yes",components:"V, S"},
+  "cleric|3|Continual Flame":{casting:"Standard action",range:"Touch",target:"Object touched",duration:"Permanent",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|3|Create Food and Water":{casting:"Standard action",range:"10 ft.",target:"Food and water to sustain 3 humans/level or 1 horse/level for 24 hours",duration:"24 hours; see text",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Cure Serious Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|3|Daylight":{casting:"Standard action",range:"Touch",target:"Object touched",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Deeper Darkness":{casting:"Standard action",range:"Touch",target:"Object touched",duration:"24 hours (D)",save:"None",sr:"No",components:"V, M/DF"},
+  "cleric|3|Glyph of Warding":{casting:"10 minutes",range:"Touch",target:"Glyph covers up to 5 sq. ft./level",duration:"Permanent until discharged (D)",save:"Special; see text",sr:"Yes",components:"V, S, M"},
+  "cleric|3|Helping Hand":{casting:"10 minutes",range:"5 miles",target:"Hand-shaped light",duration:"1 hour/level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Inflict Serious Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|3|Invisibility Purge":{casting:"Standard action",range:"Personal",target:"5-ft./level radius",duration:"1 min./level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Locate Object":{casting:"Standard action",range:"Long (400 ft. + 40 ft./level)",target:"Circular area, radius 400 ft. + 40 ft./level",duration:"10 min./level",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|3|Magic Circle against Chaos/Evil/Good/Law":{casting:"Standard action",range:"Touch",target:"Creature touched, or 10-ft.-radius emanation centered on you",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S, M/DF, F"},
+  "cleric|3|Meld into Stone":{casting:"Standard action",range:"Personal",target:"You",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Obscure Object":{casting:"Standard action",range:"Touch",target:"Object touched or 5-ft.-radius area",duration:"8 hours (D)",save:"Will negates (object)",sr:"Yes (object)",components:"V, S, M"},
+  "cleric|3|Prayer":{casting:"Standard action",range:"40 ft.",target:"All allies and foes within a 40-ft.-radius burst centered on you",duration:"1 round/level",save:"None",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|3|Remove Blindness/Deafness":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|3|Remove Curse":{casting:"Standard action",range:"Touch",target:"Creature or object touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Remove Disease":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|3|Searing Light":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Ray",duration:"Instantaneous",save:"None",sr:"Yes",components:"V, S"},
+  "cleric|3|Speak with Dead":{casting:"10 minutes",range:"10 ft.",target:"One dead creature",duration:"10 min./level",save:"Will negates",sr:"No",components:"V, S, M"},
+  "cleric|3|Stone Shape":{casting:"Standard action",range:"Touch",target:"Stone or stone object touched, up to 10 cu. ft. + 1 cu. ft./level",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|3|Summon Monster III":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|3|Water Breathing":{casting:"Standard action",range:"Touch",target:"Living creatures touched",duration:"2 hours/level (D); see text",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|3|Water Walk":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|3|Wind Wall":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Wall up to 10 ft./level long and 5 ft./level high",duration:"1 round/level",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|4|Air Walk":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level (D); see text",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|4|Control Water":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Water in an area up to 2 squares/level by 2 squares/level by 2 sq./level (10-ft. squares)",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|4|Cure Critical Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|4|Death Ward":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|4|Dimensional Anchor":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Ray",duration:"1 min./level",save:"None",sr:"Yes",components:"V, S"},
+  "cleric|4|Discern Lies":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Concentration, up to 1 round/level",save:"Will negates",sr:"No",components:"V, S, DF"},
+  "cleric|4|Divination":{casting:"10 minutes",range:"Personal",target:"You",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|4|Divine Power":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|4|Freedom of Movement":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|4|Giant Vermin":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"Up to three vermin, no two of which can be more than 30 ft. apart",duration:"1 min./level",save:"None",sr:"No",components:"V, S"},
+  "cleric|4|Inflict Critical Wounds":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|4|Magic Weapon, Greater":{casting:"Standard action",range:"Touch",target:"Weapon touched or 50 projectiles (all in contact at casting)",duration:"1 hour/level",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S, M"},
+  "cleric|4|Neutralize Poison":{casting:"Standard action",range:"Touch",target:"Creature or object touched",duration:"Instantaneous",save:"Will negates (harmless) or Fortitude negates (object)",sr:"Yes (harmless) or Yes (object)",components:"V, S"},
+  "cleric|4|Planar Ally, Lesser":{casting:"10 minutes",range:"Close (25 ft. + 5 ft./2 levels)",target:"One called creature",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|4|Poison":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"Instantaneous; see text",save:"Fortitude partial",sr:"Yes",components:"V, S"},
+  "cleric|4|Repel Vermin":{casting:"Standard action",range:"10 ft.",target:"10-ft.-radius emanation centered on you",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|4|Restoration":{casting:"3 rounds",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|4|Sending":{casting:"10 minutes",range:"Unlimited",target:"One creature",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|4|Spell Immunity":{casting:"Standard action",range:"Touch",target:"One creature/four levels",duration:"10 min./level",save:"Will negates (harmless)",sr:"No",components:"V, S, DF"},
+  "cleric|4|Summon Monster IV":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|4|Tongues":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, M/DF"},
+  "cleric|5|Atonement":{casting:"1 hour",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"None or Will negates (harmless); see text",sr:"Yes (harmless) or No; see text",components:"V, S, M, DF, XP"},
+  "cleric|5|Break Enchantment":{casting:"1 minute",range:"Touch",target:"Up to 5 creatures",duration:"Instantaneous",save:"None or Will negates; see text",sr:"Yes; see text",components:"V, S, M"},
+  "cleric|5|Command, Greater":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One living creature/level, no two of which can be more than 30 ft. apart",duration:"1 round/level",save:"Will negates",sr:"Yes",components:"V"},
+  "cleric|5|Commune":{casting:"10 minutes",range:"Personal",target:"You",duration:"1 min./level",save:"None",sr:"No",components:"V, S, M, DF, XP"},
+  "cleric|5|Cure Light Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|5|Disrupting Weapon":{casting:"Standard action",range:"Touch",target:"Melee weapon touched",duration:"1 round/level",save:"Will negates (object)",sr:"Yes (object)",components:"V, S"},
+  "cleric|5|Flame Strike":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Cylinder (10-ft. radius, 40 ft. high)",duration:"Instantaneous",save:"Reflex half",sr:"Yes",components:"V, S, M/DF"},
+  "cleric|5|Hallow":{casting:"24 hours",range:"Touch",target:"40-ft.-radius emanation",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|5|Inflict Light Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|5|Insect Plague":{casting:"Standard action",range:"Long (400 ft. + 40 ft./level)",target:"Swarm of insects",duration:"1 min./level",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|5|Mark of Justice":{casting:"10 minutes",range:"Touch",target:"Creature touched",duration:"Permanent",save:"None",sr:"No",components:"V, S"},
+  "cleric|5|Plane Shift":{casting:"Standard action",range:"Touch",target:"You and up to eight other touched creatures, or a single object weighing up to 50 lb./level",duration:"Instantaneous",save:"Will negates",sr:"Yes",components:"V, S, M"},
+  "cleric|5|Raise Dead":{casting:"10 minutes",range:"Touch",target:"Dead creature touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|5|Righteous Might":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|5|Scrying":{casting:"10 minutes",range:"See text",target:"Magical sensor",duration:"1 min./level (D)",save:"Will negates; see text",sr:"No",components:"V, S, M, F"},
+  "cleric|5|Slay Living":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Fortitude partial",sr:"Yes",components:"V, S"},
+  "cleric|5|Spell Resistance":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|5|Summon Monster V":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|5|Symbol of Pain":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|5|Symbol of Sleep":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Will negates",sr:"Yes",components:"V, S, M"},
+  "cleric|5|True Seeing":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 min./level",save:"None",sr:"Yes (harmless)",components:"V, S, M, DF"},
+  "cleric|5|Unhallow":{casting:"24 hours",range:"Touch",target:"40-ft.-radius emanation",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|5|Wall of Stone":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Stone wall whose area is up to one 5-ft.-by-20-ft. section per two levels",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|6|Animate Objects":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One Small object/level; see text",duration:"1 round/level",save:"None",sr:"No",components:"V, S"},
+  "cleric|6|Antilife Shell":{casting:"Standard action",range:"Personal",target:"10-ft.-radius emanation",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|6|Banishment":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One or more extraplanar creatures, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will negates",sr:"Yes",components:"V, S, F (optional; see text)"},
+  "cleric|6|Bear's Endurance, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|6|Blade Barrier":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Wall of blades whose area is up to one 10-ft.-by-20-ft./level section",duration:"1 min./level",save:"Reflex half",sr:"Yes",components:"V, S, DF"},
+  "cleric|6|Bull's Strength, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|6|Create Undead":{casting:"1 hour",range:"Close (25 ft. + 5 ft./2 levels)",target:"One corpse",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|6|Cure Moderate Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|6|Dispel Magic, Greater":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"One spellcaster, creature, or object; or 20-ft.-radius burst",duration:"Instantaneous",save:"None",sr:"No",components:"V, S"},
+  "cleric|6|Eagle's Splendor, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|6|Find the Path":{casting:"3 rounds",range:"Personal or touch",target:"You or creature touched",duration:"10 min./level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF, F"},
+  "cleric|6|Forbiddance":{casting:"6 rounds",range:"Touch",target:"Up to 60-ft. cube/level (S)",duration:"Permanent",save:"See text",sr:"Yes",components:"V, S, M, XP"},
+  "cleric|6|Geas/Quest":{casting:"10 minutes",range:"Close (25 ft. + 5 ft./2 levels)",target:"One living creature",duration:"See text",save:"None",sr:"Yes",components:"V"},
+  "cleric|6|Glyph of Warding, Greater":{casting:"10 minutes/level of spell stored",range:"Touch",target:"Glyph covers up to 5 sq. ft./level",duration:"Permanent until discharged (D)",save:"Special; see text",sr:"Yes",components:"V, S, M"},
+  "cleric|6|Harm":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|6|Heal":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|6|Heroes' Feast":{casting:"10 minutes",range:"Close (25 ft. + 5 ft./2 levels)",target:"Food for one creature/level",duration:"1 hour/12 hours; see text",save:"None",sr:"No",components:"V, S"},
+  "cleric|6|Inflict Moderate Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|6|Owl's Wisdom, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"1 min./level",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|6|Planar Ally":{casting:"10 minutes",range:"Close (25 ft. + 5 ft./2 levels)",target:"One or more called creatures",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|6|Summon Monster VI":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|6|Symbol of Fear":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|6|Symbol of Persuasion":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Will negates",sr:"Yes",components:"V, S, M"},
+  "cleric|6|Undeath to Death":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"All undead creatures within a 40-ft.-radius burst",duration:"Instantaneous",save:"Will negates",sr:"Yes",components:"V, S, M"},
+  "cleric|6|Wind Walk":{casting:"1 minute",range:"Touch",target:"You and other touched creatures",duration:"1 hour/level (D)",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|6|Word of Recall":{casting:"Standard action",range:"Touch",target:"You and touched objects or other willing creatures",duration:"Instantaneous",save:"None",sr:"No",components:"V"},
+  "cleric|7|Blasphemy":{casting:"Standard action",range:"40 ft.",target:"Creatures in a 40-ft.-radius spread centered on you",duration:"Instantaneous",save:"None or Will; see text",sr:"Yes",components:"V"},
+  "cleric|7|Control Weather":{casting:"10 minutes",range:"2 miles",target:"2-mile-radius circle, centered on you",duration:"4d12 hours",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|7|Cure Serious Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|7|Destruction":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"Instantaneous",save:"Fortitude partial",sr:"Yes",components:"V, S, M, DF"},
+  "cleric|7|Dictum":{casting:"Standard action",range:"40 ft.",target:"Creatures in a 40-ft.-radius spread centered on you",duration:"Instantaneous",save:"None or Will; see text",sr:"Yes",components:"V"},
+  "cleric|7|Ethereal Jaunt":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|7|Holy Word":{casting:"Standard action",range:"40 ft.",target:"Creatures in a 40-ft.-radius spread centered on you",duration:"Instantaneous",save:"None or Will; see text",sr:"Yes",components:"V"},
+  "cleric|7|Inflict Serious Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|7|Refuge":{casting:"1 hour",range:"Unlimited",target:"You and one other creature, or an object",duration:"Permanent until triggered",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|7|Regenerate":{casting:"3 full rounds",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"None",sr:"Yes (harmless)",components:"V, S, M"},
+  "cleric|7|Repulsion":{casting:"Standard action",range:"10 ft./level",target:"10-ft./level-radius emanation centered on you",duration:"1 round/level (D)",save:"Will negates",sr:"Yes",components:"V, S, M/DF"},
+  "cleric|7|Restoration, Greater":{casting:"10 minutes",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, XP"},
+  "cleric|7|Resurrection":{casting:"1 minute",range:"Touch",target:"Dead creature touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF"},
+  "cleric|7|Scrying, Greater":{casting:"Standard action",range:"See text",target:"Magical sensor",duration:"1 hour/level (D)",save:"Will negates; see text",sr:"No",components:"V, S, M, F"},
+  "cleric|7|Summon Monster VII":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|7|Symbol of Stunning":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|7|Symbol of Weakness":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|7|Word of Chaos":{casting:"Standard action",range:"40 ft.",target:"Creatures in a 40-ft.-radius spread centered on you",duration:"Instantaneous",save:"None or Will; see text",sr:"Yes",components:"V"},
+  "cleric|8|Antimagic Field":{casting:"Standard action",range:"10 ft.",target:"10-ft.-radius emanation centered on you",duration:"10 min./level (D)",save:"None",sr:"No",components:"V, S, M/DF"},
+  "cleric|8|Cloak of Chaos":{casting:"Standard action",range:"Personal",target:"You",duration:"1 round/level",save:"None",sr:"No",components:"V, S, DF"},
+  "cleric|8|Create Greater Undead":{casting:"1 hour",range:"Close (25 ft. + 5 ft./2 levels)",target:"One corpse",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|8|Cure Critical Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|8|Dimensional Lock":{casting:"Standard action",range:"Long (400 ft. + 40 ft./level)",target:"20-ft.-radius emanation",duration:"1 day/level",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|8|Discern Location":{casting:"1 hour",range:"Unlimited",target:"One creature or object",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M, DF, XP"},
+  "cleric|8|Earthquake":{casting:"1 round",range:"Long (400 ft. + 40 ft./level)",target:"Circle, radius 80 ft. + 5 ft./level",duration:"1 round",save:"None",sr:"No",components:"V, S"},
+  "cleric|8|Fire Storm":{casting:"Standard action",range:"Long (400 ft. + 40 ft./level)",target:"Two 10-ft. cubes/level in a contiguous arrangement",duration:"Instantaneous",save:"Reflex half",sr:"Yes",components:"V, S"},
+  "cleric|8|Holy Aura":{casting:"Standard action",range:"20 ft.",target:"You and all allies within 20 ft.",duration:"1 round/level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|8|Inflict Critical Wounds, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will half",sr:"Yes",components:"V, S"},
+  "cleric|8|Planar Ally, Greater":{casting:"10 minutes",range:"Close (25 ft. + 5 ft./2 levels)",target:"One or more called creatures",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|8|Shield of Law":{casting:"Standard action",range:"20 ft.",target:"You and all allies within a 20-ft.-radius burst",duration:"1 round/level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|8|Spell Immunity, Greater":{casting:"Standard action",range:"Touch",target:"One creature/four levels",duration:"10 min./level",save:"Will negates (harmless)",sr:"No",components:"V, S, DF"},
+  "cleric|8|Summon Monster VIII":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|8|Symbol of Death":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Fortitude negates",sr:"Yes",components:"V, S, M"},
+  "cleric|8|Symbol of Insanity":{casting:"10 minutes",range:"0 ft.; see text",target:"One symbol",duration:"See text",save:"Will negates",sr:"Yes",components:"V, S, M"},
+  "cleric|8|Unholy Aura":{casting:"Standard action",range:"20 ft.",target:"You and all allies within 20 ft.",duration:"1 round/level (D)",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, M/DF"},
+  "cleric|9|Astral Projection":{casting:"30 minutes",range:"Personal and touch",target:"You and up to eight touched creatures",duration:"See text",save:"None",sr:"No",components:"V, S, M"},
+  "cleric|9|Energy Drain":{casting:"Standard action",range:"Touch",target:"Living creature touched",duration:"Instantaneous",save:"Fortitude partial",sr:"Yes",components:"V, S"},
+  "cleric|9|Etherealness":{casting:"Standard action",range:"Personal and touch",target:"You and one other touched creature/three levels",duration:"1 min./level (D)",save:"None",sr:"No",components:"V, S"},
+  "cleric|9|Gate":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"Gate, up to 10 ft./level in diameter",duration:"1 round/level (D) or instantaneous; see text",save:"None",sr:"No",components:"V, S"},
+  "cleric|9|Heal, Mass":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One creature/level, no two of which can be more than 30 ft. apart",duration:"Instantaneous",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S"},
+  "cleric|9|Implosion":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"Up to four creatures, no two of which can be more than 30 ft. apart",duration:"Instantaneous (1 round/target)",save:"None",sr:"Yes",components:"V, S"},
+  "cleric|9|Miracle":{casting:"Standard action or 10 minutes",range:"Varies",target:"Varies",duration:"Varies",save:"None",sr:"Yes (harmless) or Yes; see text",components:"V, S, XP"},
+  "cleric|9|Soul Bind":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One corpse",duration:"Permanent",save:"Will negates",sr:"Yes",components:"V, S, F"},
+  "cleric|9|Storm of Vengeance":{casting:"Standard action",range:"Long (400 ft. + 40 ft./level)",target:"360-ft.-radius storm cloud",duration:"Concentration + 1 round/level",save:"None or Reflex half or Fortitude partial; see text",sr:"No",components:"V, S"},
+  "cleric|9|Summon Monster IX":{casting:"1 round",range:"Close (25 ft. + 5 ft./2 levels)",target:"One summoned creature",duration:"1 round/level (D)",save:"None",sr:"No",components:"V, S, F/DF"},
+  "cleric|9|True Resurrection":{casting:"10 minutes",range:"Touch",target:"Creature touched",duration:"Instantaneous",save:"None",sr:"No",components:"V, S, DF, XP"},
+  "cleric|2|Calm Emotions":{casting:"Standard action",range:"Medium (100 ft. + 10 ft./level)",target:"Creatures in a 20-ft.-radius spread",duration:"Concentration, up to 1 round/level (D)",save:"Will negates",sr:"Yes",components:"V, S, DF"},
+  "cleric|2|Make Whole":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One object of up to 10 cu. ft./level",duration:"Instantaneous",save:"Will negates (harmless, object)",sr:"Yes (harmless, object)",components:"V, S"},
+  "cleric|4|Dismissal":{casting:"Standard action",range:"Close (25 ft. + 5 ft./2 levels)",target:"One extraplanar creature",duration:"Instantaneous",save:"Will negates; see text",sr:"Yes",components:"V, S, DF"},
+  "cleric|4|Imbue with Spell Ability":{casting:"10 minutes",range:"Touch",target:"Creature touched",duration:"Permanent until discharged (D)",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S, DF"},
+  "cleric|5|Dispel Chaos/Evil/Good/Law":{casting:"Standard action",range:"Touch",target:"You or creature touched",duration:"1 round/level",save:"Will negates (harmless)",sr:"Yes (harmless)",components:"V, S, DF"}
+};
+const DEFAULT_INNATE=[
+ {id:"aasimar-daylight",n:"Daylight",usesPerDay:1,note:"Aasimar racial spell-like ability (3.5 Monster Manual). Caster level equals class levels."}
+];
+const DOMAIN_POWER_ORDER=["magic-power","balance-power"];
+const BUILTIN_POWERS={
+ "balance-power":{name:"Balance domain power",passive:false,usesPerDay:1,source:"Balance domain granted power · Spell Compendium p. 271",effect:()=>`Once per day, as a free action: add your Wisdom modifier (${wisdomModifier()>=0?"+":""}${wisdomModifier()}) to your Armor Class for ${characterLevel()} rounds (1 round per cleric level).`},
+ "magic-power":{name:"Magic domain power",passive:true,source:"Magic domain granted power · Player’s Handbook p. 187",effect:()=>`Always active: use spell completion and spell trigger items (scrolls, wands, staffs) as a wizard of level ${Math.max(1,Math.floor(characterLevel()/2))} (half your cleric level, minimum 1st).`}
 };
 let tab="cleric", selected=null;
-let state={prepared:[],favorites:[],character:{level:5,wisdom:23}};
+let state={prepared:[],favorites:[],character:{level:5,wisdom:23},innate:null,innateUsed:{}};
 try { const saved=window.localStorage.getItem("caelianSpellbook"); if(saved) state={...state,...JSON.parse(saved)}; } catch(e) {}
 state.prepared=Array.isArray(state.prepared)?state.prepared:[]; state.favorites=Array.isArray(state.favorites)?state.favorites:[]; state.character={...{level:5,wisdom:23},...(state.character||{})};
+state.innateUsed=(state.innateUsed&&typeof state.innateUsed==="object"&&!Array.isArray(state.innateUsed))?state.innateUsed:{};
+const hadSavedInnate=Array.isArray(state.innate);
+state.innate=hadSavedInnate?state.innate.filter(e=>e&&typeof e==="object").map((e,i)=>({id:String(e.id||("innate-"+Date.now()+"-"+i)),n:String(e.n||""),usesPerDay:Math.max(1,Math.min(20,parseInt(e.usesPerDay,10)||1)),note:String(e.note||""),custom:!!e.custom,passive:!!e.passive,builtin:BUILTIN_POWERS[e.builtin]?e.builtin:undefined})):[];
+state.innateSeeded=Array.isArray(state.innateSeeded)?state.innateSeeded:(hadSavedInnate?["aasimar-daylight"]:[]);
+state.innate=state.innate.filter(e=>!e.builtin&&!BUILTIN_POWERS[e.id]);
+state.innate.forEach(e=>{if(/^light$/i.test(e.n.trim())&&(/aasimar/i.test(e.note)||e.id==="aasimar-daylight")){e.n="Daylight";e.custom=false;e.note=DEFAULT_INNATE[0].note;}});
+DEFAULT_INNATE.forEach(d=>{if(state.innateSeeded.includes(d.id))return;if(!state.innate.some(e=>e.id===d.id))state.innate.push({...d});state.innateSeeded.push(d.id);});
+Object.keys(state.innateUsed).forEach(k=>{if(!state.innate.some(e=>e.id===k)&&!BUILTIN_POWERS[k])delete state.innateUsed[k];});
+
 const save=()=>{ try { window.localStorage.setItem("caelianSpellbook",JSON.stringify(state)); } catch(e) {} };
 const key=(source,lvl,n)=>source+"|"+lvl+"|"+n;
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const sourceLabel=s=>s==="cleric"?"Cleric spell":s==="magic"?"Magic domain":"Balance domain";
+function innateSpellData(name){const n=String(name||"").trim().toLowerCase();return allSpells("cleric").concat(allSpells("magic"),allSpells("balance")).find(s=>s.n.toLowerCase()===n)||null;}
+function builtinOf(entry){return entry&&entry.builtin?BUILTIN_POWERS[entry.builtin]:null;}
+function isPassive(entry){const b=builtinOf(entry);return b?b.passive:!!entry.passive;}
+function innateName(entry){const b=builtinOf(entry);return b?b.name:entry.n;}
+function innateRemaining(entry){return entry.usesPerDay-(state.innateUsed[entry.id]||0);}
+function innateById(id){return state.innate.find(e=>e.id===id);}
+function toggleInnateUse(id){const entry=innateById(id);if(!entry||isPassive(entry))return;const used=state.innateUsed[id]||0;state.innateUsed[id]=used>=entry.usesPerDay?0:used+1;save();render();}
+function addInnate(){state.innate.push({id:"innate-"+Date.now(),n:"",usesPerDay:1,note:""});save();render();}
+function removeInnate(id){const entry=innateById(id);if(entry&&innateName(entry)&&!confirm(`Remove "${innateName(entry)}" from innate spells?`))return;state.innate=state.innate.filter(e=>e.id!==id);delete state.innateUsed[id];save();render();}
+const CUSTOM_OPTION="__custom__";
+function allSpellsUnique(){return [...new Map(allSpells("cleric").concat(allSpells("magic"),allSpells("balance")).map(s=>[s.n,s])).values()];}
+function updateInnate(id,field,value){const entry=innateById(id);if(!entry)return;if(field==="usesPerDay"){entry.usesPerDay=Math.max(1,Math.min(20,parseInt(value,10)||1));if((state.innateUsed[id]||0)>entry.usesPerDay)state.innateUsed[id]=entry.usesPerDay;}else if(field==="passive"){entry.passive=!!value;if(entry.passive)delete state.innateUsed[id];}else if(field==="pick"){if(value===CUSTOM_OPTION){entry.custom=true;if(innateSpellData(entry.n))entry.n="";}else{entry.custom=false;entry.n=value;}}else if(field==="n"){const match=innateSpellData(value);entry.n=match?match.n:String(value).trim();}else entry[field]=String(value);save();render();}
+function spellSelectHTML(entry){const known=innateSpellData(entry.n),custom=entry.custom||(entry.n&&!known);const byLevel={};allSpellsUnique().forEach(s=>(byLevel[s.l]=byLevel[s.l]||[]).push(s));
+ const groups=Object.keys(byLevel).sort((a,b)=>a-b).map(l=>`<optgroup label="${+l===0?"0-level":ordinal(+l)+" level"}">${byLevel[l].sort((a,b)=>a.n.localeCompare(b.n)).map(s=>`<option value="${esc(s.n)}" ${!custom&&known&&known.n===s.n?"selected":""}>${esc(s.n)}</option>`).join("")}</optgroup>`).join("");
+ return `<select class="select" data-field="pick"><option value="" ${!entry.n&&!custom?"selected":""} disabled>Choose a spell…</option>${groups}<option value="${CUSTOM_OPTION}" ${custom?"selected":""}>Other (custom ability)…</option></select>${custom?`<input type="text" data-field="n" value="${esc(entry.n)}" placeholder="Spell or ability name">`:""}`;}
+function innateInfo(entry){const b=builtinOf(entry);if(b)return esc(b.source);const spell=innateSpellData(entry.n);return spell?`${sourceLabel(spell.source)} · ${spell.l===0?"0-level":ordinal(spell.l)+" level"} · ${esc(spell.s)}`:(entry.n?"Custom ability — no spell card":"No spell chosen yet");}
+function innateEffect(entry){const b=builtinOf(entry);return b?`<p class="innate-effect">${esc(b.effect())}</p>`:"";}
+function innateUsageHTML(entry){if(isPassive(entry))return `<div class="used passive">Always active</div>`;const remaining=innateRemaining(entry);return `<div class="used">${entry.usesPerDay-remaining} / ${entry.usesPerDay} used today</div>`;}
+function innateUseButtons(entry){const spell=!builtinOf(entry)&&innateSpellData(entry.n),parts=[];if(!isPassive(entry))parts.push(`<button type="button" class="action secondary" data-innate-act="use" ${innateName(entry)?"":"disabled"}>${innateRemaining(entry)>0?"Mark one used":"Reset uses"}</button>`);if(spell)parts.push(`<button type="button" class="action secondary" data-innate-act="view">View spell</button>`);return parts.join("");}
+function cardState(entry){return !isPassive(entry)&&innateRemaining(entry)<=0?"over":"";}
+// Editable card: Character settings only
+function innateEditCardHTML(entry){const b=builtinOf(entry);
+ const head=b?`<h3>${esc(b.name)}</h3><p class="meta">${innateInfo(entry)}</p>${innateEffect(entry)}`:`<label class="innate-field">Spell or ability${spellSelectHTML(entry)}</label><p class="meta">${innateInfo(entry)}</p>`;
+ const uses=isPassive(entry)?"":`<div class="settingsrow"><label class="innate-field">Uses / day<input type="number" min="1" max="20" inputmode="numeric" data-field="usesPerDay" value="${entry.usesPerDay}"></label></div>`;
+ const passiveToggle=b?"":`<label class="innate-toggle"><input type="checkbox" data-field="passive" ${entry.passive?"checked":""}> Always active (no daily limit)</label>`;
+ return `<div class="slotcard innate-card ${cardState(entry)}" data-id="${esc(entry.id)}">${head}${uses}${passiveToggle}
+ <label class="innate-field">Note<input type="text" data-field="note" value="${esc(entry.note)}" placeholder="Optional note"></label>
+ ${innateUsageHTML(entry)}
+ <div class="actionrow">${innateUseButtons(entry)}<button type="button" class="action secondary" data-innate-act="remove">Remove</button></div></div>`;}
+// Read-only card: Prepared Today tab (usage tracking only)
+function innateViewCardHTML(entry){const b=builtinOf(entry);
+ return `<div class="slotcard innate-card ${cardState(entry)}" data-id="${esc(entry.id)}"><h3>${esc(innateName(entry)||"No spell chosen")}</h3><p>${innateInfo(entry)}</p>${innateEffect(entry)}${entry.note?`<p>${esc(entry.note)}</p>`:""}${innateUsageHTML(entry)}<div class="actionrow">${innateUseButtons(entry)}</div></div>`;}
+function innateListHTML(editable){if(!editable)return state.innate.length?`<div class="slotgrid">${state.innate.map(innateViewCardHTML).join("")}</div>`:`<p class="meta">No innate spells set. Add them in Character settings.</p>`;
+ return (state.innate.length?state.innate.map(innateEditCardHTML).join(""):`<p class="meta">No innate spells. Add racial spell-like abilities here.</p>`)+`<div class="actionrow"><button type="button" class="action secondary" data-innate-act="add">+ Add innate spell</button></div>`;}
+function bindInnate(node){if(!node)return;node.querySelectorAll("[data-innate-act]").forEach(button=>button.onclick=event=>{event.stopPropagation();const act=button.dataset.innateAct,card=button.closest("[data-id]"),id=card&&card.dataset.id;if(act==="add")return addInnate();if(act==="use")return toggleInnateUse(id);if(act==="remove")return removeInnate(id);if(act==="view"){const entry=innateById(id),spell=entry&&innateSpellData(entry.n);if(spell)showSpellModal(spell);}});node.querySelectorAll("[data-field]").forEach(input=>input.onchange=()=>{const card=input.closest("[data-id]");updateInnate(card.dataset.id,input.dataset.field,input.type==="checkbox"?input.checked:input.value);});}
+function fillInnate(node,editable){if(!node)return;node.innerHTML=innateListHTML(editable);bindInnate(node);}
+function domainUsesLeft(key){const p=BUILTIN_POWERS[key];return p.passive?Infinity:p.usesPerDay-(state.innateUsed[key]||0);}
+function toggleDomainUse(key){const p=BUILTIN_POWERS[key];if(!p||p.passive)return;const used=state.innateUsed[key]||0;state.innateUsed[key]=used>=p.usesPerDay?0:used+1;save();render();}
+function domainPowerCardHTML(key){const p=BUILTIN_POWERS[key],left=domainUsesLeft(key);
+ const usage=p.passive?`<div class="used passive">Always active</div>`:`<div class="used">${p.usesPerDay-left} / ${p.usesPerDay} used today</div><div class="actionrow"><button type="button" class="action secondary" data-domain-act="use">${left>0?"Mark used":"Reset"}</button></div>`;
+ return `<div class="slotcard innate-card domain-card ${!p.passive&&left<=0?"over":""}" data-power="${key}"><h3>${esc(p.name)}</h3><p class="meta">${esc(p.source)}</p><p class="innate-effect">${esc(p.effect())}</p>${usage}</div>`;}
+function fillDomainPowers(node,grid){if(!node)return;const cards=DOMAIN_POWER_ORDER.map(domainPowerCardHTML).join("");node.innerHTML=grid?`<div class="slotgrid">${cards}</div>`:cards;node.querySelectorAll("[data-domain-act]").forEach(b=>b.onclick=e=>{e.stopPropagation();toggleDomainUse(b.closest("[data-power]").dataset.power);});}
+function renderInnate(){["innateSpells","mobileInnateSpells"].forEach(id=>fillInnate(document.getElementById(id),true));["domainPowers","mobileDomainPowers"].forEach(id=>fillDomainPowers(document.getElementById(id),false));}
+
 function allSpells(source){
  if(source==="cleric") return Object.entries(DATA.cleric).flatMap(([l,a])=>a.map(x=>({...x,l:+l,source})));
  const obj=source==="magic"?DATA.magic:DATA.balance;
@@ -62,13 +328,15 @@ function activeSpellLevels(){return Array.from({length:10},(_,level)=>level).fil
 function spellDC(level){return 10+level+wisdomModifier();}
 function spellStats(s){return STAT_OVERRIDES[key(s.source,s.l,s.n)]||{casting:"See full rules",range:"See full rules",target:"See full rules",duration:"See full rules",save:"See full rules",sr:"See full rules",components:"See full rules"};}
 function spellReference(s){
- if(s.source==="balance") return {label:"View Spell Compendium reference",url:"https://www.dmsguild.com/product/3725/Spell-Compendium-35",note:"Balance-domain text comes from Spell Compendium. This sheet keeps only a concise summary and the book reference."};
  const file=s.n.toLowerCase().replace(/[^a-z0-9]+(.)?/g,(_,letter)=>letter?letter.toUpperCase():"");
- return {label:"Read full SRD rules text",url:"https://www.d20srd.org/srd/spells/"+file+".htm",note:"This is SRD material. The linked reference contains the complete spell text and rules details."};
+ if(s.ref&&s.ref.startsWith("Spell Compendium"))return {label:`Spell Compendium, ${s.ref.replace("Spell Compendium ","")}`,url:"https://www.dmsguild.com/product/3725/Spell-Compendium-35",note:`Source: ${s.ref}. The description above is written in this sheet's own words; check the book for exact wording.`};
+ return {label:"Read full SRD rules text",url:"https://www.d20srd.org/srd/spells/"+file+".htm",note:s.ref?`Source: Player’s Handbook, ${s.ref.replace("PH ","")}. The linked SRD page has the complete rules text.`:"This is SRD material. The linked reference contains the complete spell text and rules details."};
 }
 function fullCardDescription(s,stats){
- const mechanics=stats.casting==="See full rules"?"The linked rules reference supplies any spell-specific exceptions, scaling, targets, and restrictions not shown in this quick card.":`Cast it as a ${stats.casting.toLowerCase()} effect with a range of ${stats.range.toLowerCase()}. It affects ${stats.target.toLowerCase()} and lasts ${stats.duration.toLowerCase()}. ${stats.save!=="None"?`If a saving throw applies, the DC is ${spellDC(s.l)}.`:"It does not allow a saving throw."} Spell resistance is ${stats.sr.toLowerCase()}.`;
- return `${s.d} ${mechanics} ${isDomain(s)?"Preparing it uses this level’s single domain slot, shared between Magic and Balance.":"Preparing it uses one normal Cleric slot of this spell level."}`;
+ const slot=isDomain(s)?"Preparing it uses this level’s single domain slot, shared between Magic and Balance.":"Preparing it uses one normal Cleric slot of this spell level.";
+ if(s.full)return `${s.full}\n\nSave DC ${spellDC(s.l)} where a save applies. ${slot}`;
+ const mechanics=`Cast it as a ${stats.casting.toLowerCase()} effect with a range of ${stats.range.toLowerCase()}. It affects ${stats.target.toLowerCase()} and lasts ${stats.duration.toLowerCase()}. ${stats.save!=="None"?`If a saving throw applies, the DC is ${spellDC(s.l)}.`:"It does not allow a saving throw."} Spell resistance is ${stats.sr.toLowerCase()}.`;
+ return `${s.d} ${mechanics} ${slot}`;
 }
 function openSpell(s){
  selected=s; const html=detailHTML(s);
@@ -113,11 +381,12 @@ function renderToday(el){
  const all=allSpells("cleric").concat(allSpells("magic"),allSpells("balance"));
  const levels=activeSpellLevels(),prepared=all.filter(s=>state.prepared.includes(key(s.source,s.l,s.n))),totalCapacity=levels.reduce((sum,level)=>{const info=slotInfo(level);return sum+info.normal+info.domain;},0);
  const dcCards=levels.map(level=>`<div class="dc-item"><span>${level===0?"0-level":ordinal(level)+" level"}</span><b>DC ${spellDC(level)}</b></div>`).join("");
- el.innerHTML=`<section><h2 style="font-family:Georgia,serif;margin:0 0 4px">Prepared Today</h2><p class="prepared-intro">Caelian, Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()}). Checkboxes prepare spells; ★ bookmarks them for the Favorites filter.</p><div class="summarygrid"><div class="summarycard"><b>${prepared.length} / ${totalCapacity}</b><span>Prepared slots</span></div><div class="summarycard"><b>+${characterLevel()}</b><span>Caster level / dispel check</span></div><div class="summarycard"><b>${levels.filter(level=>level>0).length}</b><span>Available domain levels</span></div></div><div class="dc-panel"><h3>Spell Save DC by Level</h3><div class="dc-grid">${dcCards}</div></div><div class="bookmark-note"><strong>★</strong><span>Favorites are personal bookmarks only. They make a spell easier to find and do not prepare it.</span></div><div class="slotgrid">${levels.map(level=>slotCard(level)).join("")}</div><div class="actionrow"><button class="action secondary" id="clearPrepared">Clear today’s preparation</button></div></section>`;
+ el.innerHTML=`<section><h2 style="font-family:Georgia,serif;margin:0 0 4px">Prepared Today</h2><p class="prepared-intro">Caelian, Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()}). Checkboxes prepare spells; ★ bookmarks them for the Favorites filter.</p><div class="summarygrid"><div class="summarycard"><b>${prepared.length} / ${totalCapacity}</b><span>Prepared slots</span></div><div class="summarycard"><b>+${characterLevel()}</b><span>Caster level / dispel check</span></div><div class="summarycard"><b>${levels.filter(level=>level>0).length}</b><span>Available domain levels</span></div></div><div class="dc-panel"><h3>Spell Save DC by Level</h3><div class="dc-grid">${dcCards}</div></div><div class="bookmark-note"><strong>★</strong><span>Favorites are personal bookmarks only. They make a spell easier to find and do not prepare it.</span></div><div class="slotgrid">${levels.map(level=>slotCard(level)).join("")}</div><h3>Innate spells</h3><p class="prepared-intro">Racial spell-like abilities. They never use a Cleric or domain slot, only their own daily uses, and clearing prepared spells doesn’t reset them.</p><div id="todayInnate"></div><h3>Domain powers</h3><p class="prepared-intro">Granted bonuses from your domains, always available.</p><div id="todayDomain"></div><div class="actionrow"><button class="action secondary" id="clearPrepared">Clear today’s preparation</button></div></section>`;
  const unsupported=prepared.filter(s=>!slotInfo(s.l).normal); if(unsupported.length)el.innerHTML+=`<div class="warning">${unsupported.length} prepared spell${unsupported.length===1?" is":"s are"} above the current Cleric level or Wisdom limit. Remove ${unsupported.length===1?"it":"them"} before play.</div>`;
  const grouped=levels.map(level=>({level,normal:prepared.filter(s=>s.l===level&&!isDomain(s)),domain:prepared.filter(s=>s.l===level&&isDomain(s))}));
  grouped.forEach(group=>{const section=document.createElement("div");section.className="level";section.innerHTML=`<div class="levelhead"><strong>${group.level===0?"0 · Orisons":ordinal(group.level)+" · Spells"}</strong><span class="count">${group.normal.length} cleric · ${group.domain.length} domain</span></div>`;[...group.normal,...group.domain].forEach(s=>{const row=document.createElement("div");row.className="spellrow";row.innerHTML=`<div></div><div><div class="spellname">${esc(s.n)}</div><div class="meta">${sourceLabel(s.source)} · ${esc(s.s)} · DC ${spellDC(s.l)}</div></div><button class="star" aria-label="Open ${esc(s.n)}">→</button>`;row.onclick=()=>showSpellModal(s);section.appendChild(row);});el.appendChild(section);});
  if(!prepared.length)el.innerHTML+='<div class="empty">No spells prepared yet. Go to Cleric, Magic Domain, or Balance Domain and tick a checkbox.</div>';
+ fillInnate(document.getElementById("todayInnate"),false); fillDomainPowers(document.getElementById("todayDomain"),true);
  document.getElementById("clearPrepared").onclick=()=>{state.prepared=[];save();render();if(selected)openSpell(selected);};
 }
 function slotCard(level){const info=slotInfo(level),normal=preparedAt(level,false).length,domain=preparedAt(level,true).length,over=normal>info.normal||domain>info.domain;return `<div class="slotcard ${over?"over":""}"><h3>${level===0?"0 · Orisons":ordinal(level)+" · Spells"}</h3><p>${info.normal} cleric${info.domain?" + 1 domain":""}</p><div class="used">${normal} / ${info.normal}${info.domain?` · ${domain} / 1 D`:""}</div></div>`;}
@@ -133,7 +402,7 @@ function syncCharacterUI(){
  const text=`Slots and spell DCs update from Cleric level and Wisdom. This sheet retains Caelian’s existing +1 1st-level slot adjustment.`;note.textContent=text;mobileNote.textContent=text;
 }
 function slotSummaryHTML(){const levels=activeSpellLevels();return levels.map(level=>{const info=slotInfo(level);return `<div class="slotline"><span>${level===0?"Orisons":ordinal(level)+" level"}</span><b>${preparedAt(level,false).length}/${info.normal}${info.domain?` · ${preparedAt(level,true).length}/1 D`:""}</b></div>`;}).join("")+`<div class="slotline"><span>Spell DCs</span><b>Listed by level</b></div>`+levels.map(level=>`<div class="slotline"><span>DC · ${level===0?"0-level":ordinal(level)}</span><b>${spellDC(level)}</b></div>`).join("")+`<div class="slotline"><span>Caster level</span><b>${characterLevel()}</b></div>`;}
-function updateSlots(){syncCharacterUI();const html=slotSummaryHTML();document.getElementById("slots").innerHTML=html;document.getElementById("mobileSlots").innerHTML=html;}
+function updateSlots(){syncCharacterUI();const html=slotSummaryHTML();document.getElementById("slots").innerHTML=html;document.getElementById("mobileSlots").innerHTML=html;renderInnate();}
 function applyCharacterChanges(event){
  const levelInput=document.getElementById("charLevel"),wisInput=document.getElementById("wis"),source=event&&event.currentTarget&&event.currentTarget.id.startsWith("mobile"),mobileLevel=document.getElementById("mobileCharLevel"),mobileWis=document.getElementById("mobileWis");
  if(source){levelInput.value=mobileLevel.value;wisInput.value=mobileWis.value;}
