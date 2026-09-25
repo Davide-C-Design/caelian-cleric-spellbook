@@ -8,15 +8,15 @@
   --gold:#e3b95f;--gold-ink:#f3d89a;--gold-soft:rgba(227,185,95,.13);--gold-line:rgba(227,185,95,.45);
   --silver:#a9bedf;--silver-soft:rgba(169,190,223,.13);--silver-line:rgba(169,190,223,.45);
   --red:#e8837a;--red-soft:rgba(232,131,122,.12);
-  --serif:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:-apple-system,BlinkMacSystemFont,"Geist","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Geist","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --r-lg:16px;--r-md:12px;--r-sm:8px;
   --header-h:132px;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{max-width:100%;overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ink);font:500 16.5px/1.55 var(--sans);font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:450 16.5px/1.55 var(--sans);font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 button:disabled{cursor:not-allowed;opacity:.45}
@@ -225,13 +225,14 @@ section>h3{font-size:19px;margin:26px 0 6px}
 /* Keep numbers lining and aligned (after any font shorthand) */
 .title h1,.levelhead strong,.spellname,.detail h2,.sheet h2,.summarycard b,.dc-item b,.slotcard h3,.slotcard .used,.innate-card h3,.today h3,.settings h3,section>h3{font-variant-numeric:lining-nums tabular-nums}
 
-/* ---------- Typography: Bricolage Grotesque (headings) + Instrument Sans (text) ---------- */
-h1,h2,h3,.spellname,.levelhead strong,.summarycard b,.dc-item b,.slotcard .used{letter-spacing:-.025em;font-variation-settings:"wdth" 90}
-h1,h2,h3,.spellname,.levelhead strong{font-weight:700}
-.meta{font-size:15px;font-weight:500;line-height:1.45}
-.fact,.fact b,.slotline,.statusline,.prepared-intro,.detail>p,.sheet>p,.note,.bookmark-note,.innate-effect,.innate-field,.settingsrow label,.count{font-weight:500}
-.ruletext{font-weight:500;font-size:16.5px;line-height:1.6}
-.search,.select,.settings input,.innate-field input{font-weight:500}
+/* ---------- Typography: one family everywhere ----------
+   Apple devices use the system font (SF Pro); other devices get Geist. */
+h1,h2,h3,.levelhead strong,.summarycard b,.dc-item b,.slotcard .used{font-weight:700;letter-spacing:-.015em}
+.spellname{font-weight:600;letter-spacing:-.01em}
+.meta{font-size:15px;font-weight:450;line-height:1.45}
+.fact,.fact b,.slotline,.statusline,.prepared-intro,.detail>p,.sheet>p,.note,.bookmark-note,.innate-effect,.innate-field,.settingsrow label,.count{font-weight:450}
+.ruletext{font-weight:450;font-size:16.5px;line-height:1.6}
+.search,.select,.settings input,.innate-field input{font-weight:450}
 .tab{font-weight:600}
 .action.secondary{font-weight:500}
 .settings .innate-card h3,.today .innate-card h3,section .innate-card h3{margin:0;padding:0;border:0}
