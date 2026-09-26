@@ -2,7 +2,6 @@ const BASE_CLERIC_SLOTS=[
  [3,1],[4,2],[4,2,1],[5,3,2],[5,3,2,1],[5,3,3,2],[6,4,3,2,1],[6,4,3,3,2],[6,4,4,3,2,1],[6,4,4,3,3,2],
  [6,5,4,4,3,2,1],[6,5,4,4,3,3,2],[6,5,5,4,4,3,2,1],[6,5,5,4,4,3,3,2],[6,5,5,5,4,4,3,2,1],[6,5,5,5,4,4,3,3,2],[6,5,5,5,5,4,4,3,2,1],[6,5,5,5,5,4,4,3,3,2],[6,5,5,5,5,5,4,4,3,3],[6,5,5,5,5,5,4,4,4,4]
 ];
-const CAELIAN_FIRST_LEVEL_ADJUSTMENT=1;
 const STAT_OVERRIDES={
   "cleric|0|Detect Magic":{casting:"Standard action",range:"60 ft.",target:"Cone-shaped emanation",duration:"Concentration, up to 1 min./level",save:"None",sr:"No",components:"V, S"},
   "cleric|0|Guidance":{casting:"Standard action",range:"Touch",target:"Creature touched",duration:"1 minute or until discharged",save:"Will (harmless)",sr:"Yes (harmless)",components:"V, S"},
@@ -323,7 +322,7 @@ function characterLevel(){return state.character.level;}
 function wisdom(){return state.character.wisdom;}
 function wisdomModifier(){return Math.floor((wisdom()-10)/2);}
 function bonusSpells(level){const modifier=wisdomModifier();return level>0&&modifier>=level?1+Math.floor((modifier-level)/4):0;}
-function slotInfo(level){const base=(BASE_CLERIC_SLOTS[characterLevel()-1]||[])[level]||0;if(!base||wisdom()<10+level)return {normal:0,domain:0};return {normal:base+(level===1?CAELIAN_FIRST_LEVEL_ADJUSTMENT:0)+bonusSpells(level),domain:level>0?1:0};}
+function slotInfo(level){const base=(BASE_CLERIC_SLOTS[characterLevel()-1]||[])[level]||0;if(!base||wisdom()<10+level)return {normal:0,domain:0};return {normal:base+bonusSpells(level),domain:level>0?1:0};}
 function activeSpellLevels(){return Array.from({length:10},(_,level)=>level).filter(level=>slotInfo(level).normal>0);}
 function spellDC(level){return 10+level+wisdomModifier();}
 function spellStats(s){return STAT_OVERRIDES[key(s.source,s.l,s.n)]||{casting:"See full rules",range:"See full rules",target:"See full rules",duration:"See full rules",save:"See full rules",sr:"See full rules",components:"See full rules"};}
@@ -400,7 +399,7 @@ function updateBadge(){document.getElementById("preparedBadge").textContent=stat
 function syncCharacterUI(){
  const subtitle=document.querySelector(".title p"),note=document.querySelector(".settings .meta"),mobileNote=document.getElementById("mobileCharacterNote");
  ["charLevel","mobileCharLevel"].forEach(id=>document.getElementById(id).value=characterLevel());["wis","mobileWis"].forEach(id=>document.getElementById(id).value=wisdom());subtitle.textContent=`D&D 3.5 · Cleric ${characterLevel()} · Wisdom ${wisdom()} (${wisdomModifier()>=0?"+":""}${wisdomModifier()})`;
- const text=`Slots and spell DCs update from Cleric level and Wisdom. This sheet retains Caelian’s existing +1 1st-level slot adjustment.`;note.textContent=text;mobileNote.textContent=text;
+ const text=`Slots and spell DCs update from Cleric level and Wisdom.`;note.textContent=text;mobileNote.textContent=text;
 }
 function slotSummaryHTML(){const levels=activeSpellLevels();return levels.map(level=>{const info=slotInfo(level);return `<div class="slotline"><span>${level===0?"Orisons":ordinal(level)+" level"}</span><b>${preparedAt(level,false).length}/${info.normal}${info.domain?` · ${preparedAt(level,true).length}/1 D`:""}</b></div>`;}).join("")+`<div class="slotline"><span>Spell DCs</span><b>Listed by level</b></div>`+levels.map(level=>`<div class="slotline"><span>DC · ${level===0?"0-level":ordinal(level)}</span><b>${spellDC(level)}</b></div>`).join("")+`<div class="slotline"><span>Caster level</span><b>${characterLevel()}</b></div>`;}
 function updateSlots(){syncCharacterUI();const html=slotSummaryHTML();document.getElementById("slots").innerHTML=html;document.getElementById("mobileSlots").innerHTML=html;renderInnate();}
